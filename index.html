@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>douxrêves.studio</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f5d7;
+            color: #2d252f;
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #2d252f;
+            padding: 10px;
+            text-align: left;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .logo {
+            color: #f8f5d7;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        main {
+            padding: 20px;
+            margin-top: 60px; /* Adjusted for header visibility */
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            margin-bottom: 10px;
+        }
+        nav ul li a {
+            color: #2d252f;
+            text-decoration: underline;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        section {
+            display: none;
+            padding: 20px;
+        }
+        section:target {
+            display: block;
+        }
+        footer {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 1.2em;
+        }
+        #contact-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f8f5d7;
+            padding: 20px;
+            z-index: 999;
+            overflow-y: auto;
+            margin-top: 60px; /* Avoid header overlap */
+        }
+        #contact-page form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">douxrêves.studio</a>
+    </header>
+    <main>
+        <nav>
+            <ul>
+                <li><a href="https://www.etsy.com/listing/1864524784/10mm-socket-signet-ring?click_key=d9b5aed3e2e4c81bfea08d546fab8e52a99b04e5%3A1864524784&click_sum=06e58a0f&ref=shop_home_active_1" target="_blank">10mm socket rings</a></li>
+                <li><a href="https://www.etsy.com/shop/douxrevesstudio?ref=dashboard-header" target="_blank">shop</a></li>
+                <li><a href="https://www.instagram.com/douxreves.studio/" target="_blank">instagram catalogue</a></li>
+                <li><a href="contact.html" onclick="openContact(event)">contact</a></li>
+                <li><a href="https://www.solomon.lol" target="_blank">portfolio</a></li>
+            </ul>
+        </nav>
+        
+        <section id="rings">
+            <h2>10mm Socket Rings</h2>
+            <p>Details about the 10mm socket rings.</p>
+        </section>
+        
+        <section id="shop">
+            <h2>Shop</h2>
+            <p>Welcome to our shop.</p>
+        </section>
+        
+        <section id="about">
+            <h2>About Us</h2>
+            <p>Information about our studio.</p>
+        </section>
+        
+        <footer>
+            <p id="time"></p>
+            <p id="date"></p>
+        </footer>
+    </main>
+    
+    <div id="contact-page">
+        <h2>contact</h2>
+        <form id="contact-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <br><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <br><br>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+            <br><br>
+            <button type="submit">Send</button>
+            <button type="button" onclick="closeContact()">Close</button>
+        </form>
+    </div>
+    
+    <script>
+        // Initialize EmailJS
+        (function() {
+            emailjs.init('iyAiuWec-EI8QJA74'); // Replace with your EmailJS user ID
+        })();
+
+        function updateTime() {
+            const now = new Date();
+            document.getElementById("time").textContent = now.toLocaleTimeString();
+            document.getElementById("date").textContent = now.toLocaleDateString();
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+        
+        function openContact(event) {
+            event.preventDefault();
+            document.getElementById("contact-page").style.display = "block";
+        }
+        function closeContact() {
+            document.getElementById("contact-page").style.display = "none";
+        }
+
+        // Handle form submission with EmailJS
+        document.getElementById("contact-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Send form data using EmailJS
+            emailjs.sendForm('service_uwkfljd', 'template_hund22q', this)
+                .then(function(response) {
+                    alert('Message sent successfully!');
+                    closeContact(); // Close the contact form on success
+                }, function(error) {
+                    alert('Failed to send message. Please try again.');
+                });
+        });
+    </script>
+</body>
+</html>
